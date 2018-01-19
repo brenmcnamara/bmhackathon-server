@@ -26,14 +26,12 @@ contract BayernToken {
      * Initializes contract with initial supply tokens to the creator of the contract
      */
     function BayernToken(
-        uint256 initialSupply,
-        string tokenName,
-        string tokenSymbol
+        uint256 initialSupply
     ) public {
         totalSupply = initialSupply * 10 ** uint256(decimals);  // Update total supply with the decimal amount
         balanceOf[msg.sender] = totalSupply;                // Give the creator all initial tokens
-        name = tokenName;                                   // Set the name for display purposes
-        symbol = tokenSymbol;                               // Set the symbol for display purposes
+        name = 'BayernToken';                                   // Set the name for display purposes
+        symbol = 'FCB';                               // Set the symbol for display purposes
     }
 
     /**
@@ -149,5 +147,9 @@ contract BayernToken {
         totalSupply -= _value;                              // Update totalSupply
         Burn(_from, _value);
         return true;
+    }
+
+    function getBalance(address addr) public view returns (uint256 balance) {
+      return balanceOf[addr];
     }
 }

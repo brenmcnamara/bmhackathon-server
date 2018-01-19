@@ -58,3 +58,4 @@ jspm_packages
 
 # Vim swap files
 .*.swp
+.*.swo

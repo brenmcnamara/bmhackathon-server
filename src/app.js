@@ -5,6 +5,7 @@ import express from 'express';
 import morgan from 'morgan';
 import path from 'path';
 import routes, { initialize as initializeRoutes } from './routes';
+import Blockchain from './ethereum';
 // import serveFavicon from 'serve-favicon';
 
 const app = express();
@@ -45,4 +46,5 @@ export function initialize(): void {
   });
 
   initializeRoutes();
+  Blockchain.initWeb3();
 }
