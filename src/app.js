@@ -5,7 +5,7 @@ import express from 'express';
 import morgan from 'morgan';
 import path from 'path';
 import routes, { initialize as initializeRoutes } from './routes';
-import serveFavicon from 'serve-favicon';
+// import serveFavicon from 'serve-favicon';
 
 const app = express();
 
