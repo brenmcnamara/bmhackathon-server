@@ -1,13 +1,17 @@
 /* @flow */
 
+/* eslint-disable no-console */
+
 import * as FirebaseAdmin from 'firebase-admin';
 
+import chalk from 'chalk';
 import uuid from 'uuid/v4';
 
 import type { Game } from './models/Game';
 import type { Question } from './models/Question';
 import type { Seconds } from './models/types';
 
+const GAME_ID = 'DEMO_GAME';
 const SECONDS = 1000;
 const MINUTES = SECONDS * 60;
 
@@ -20,6 +24,10 @@ const questions = {};
 // -----------------------------------------------------------------------------
 
 export default (async function gameRunner() {
+  console.log(chalk.green('Initializing. This may take a moment...'));
+  await initialize();
+
+  console.log(chalk.green('Generating a game...'));
   const game = buildGame();
   await genCreateGame(game);
 
@@ -44,6 +52,41 @@ export default (async function gameRunner() {
 // UTILITIES
 //
 // -----------------------------------------------------------------------------
+
+function initialize(): Promise<void> {
+  return (
+    Promise.resolve()
+      // Delete all existing questions for this game.
+      .then(() => {
+        return FirebaseAdmin.firestore()
+          .collection('Question')
+          .where('gameRef.refID', '==', GAME_ID)
+          .get();
+      })
+      .then(snapshot => {
+        const batch = FirebaseAdmin.firestore().batch();
+        snapshot.docs.forEach(doc => {
+          if (!doc.exists) {
+            return;
+          }
+          const question = doc.data();
+          const ref = FirebaseAdmin.firestore()
+            .collection('Question')
+            .doc(question.id);
+          batch.delete(ref);
+        });
+        return batch.commit();
+      })
+      // TODO: Delete submissions.
+      // Delete the game
+      .then(() => {
+        return FirebaseAdmin.firestore()
+          .collection('Game')
+          .doc(GAME_ID)
+          .delete();
+      })
+  );
+}
 
 function buildGame(): Game {
   return {
@@ -75,6 +118,11 @@ function buildQuestion(
     askAt: new Date(now.getTime() + 1000 * 2),
     correctIndex: 'UNKNOWN',
     createdAt: now,
+    gameRef: {
+      pointerType: 'Game',
+      refID: GAME_ID,
+      type: 'POINTER',
+    },
     id: uuid(),
     isCanceled: false,
     modelType: 'Question',
