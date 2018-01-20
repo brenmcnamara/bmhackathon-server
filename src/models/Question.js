@@ -1,19 +1,12 @@
 /* @flow */
 
-import type { ModelStub } from './types';
+import type { ModelStub, Seconds } from './types';
 
 export type Question = ModelStub<'Question'> & {
-  +status: QuestionStatus,
+  +askAt: Date,
+  +correctIndex: number | 'UNKNOWN',
+  +isCanceled: bool,
+  +options: Array<string>,
+  +query: string,
+  +timeLimit: Seconds,
 };
-
-export type QuestionStatus =
-  | {|
-      +isAcceptingSubmissions: bool,
-      +type: 'IN_PROGRESS',
-    |}
-  | {|
-      +correctAnswer: Answer,
-      +type: 'COMPLETE',
-    |};
-
-export type Answer = number;

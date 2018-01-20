@@ -22,3 +22,5 @@ export type Currency = {|
   +type: string,
   +value: number,
 |};
+
+export type Seconds = number;
