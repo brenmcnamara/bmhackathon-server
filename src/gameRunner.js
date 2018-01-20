@@ -53,7 +53,7 @@ export default (async function gameRunner() {
     await genMarkCorrectIndex(questions.FIRST, 0);
   });
 
-  atTime({ minutes: 19, seconds: 30 }, game, async () => {
+  atTime({ minutes: 19, seconds: 40 }, game, async () => {
     console.log('NEXT QUESTION');
     questions.SECOND = buildQuestion(
       'Who is better looking?',
