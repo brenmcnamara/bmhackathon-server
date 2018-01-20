@@ -14,15 +14,10 @@ export type Game = ModelStub<'Game'> & {
 };
 
 export type GameStatus =
-  | {|
-      +type: 'NOT_YET_STARTED',
-    |}
-  | {|
-      +type: 'IN_PROGRESS',
-    |}
-  | {|
-      +type: 'COMPLETE',
-    |};
+  | 'IN_PROGRESS'
+  | 'NOT_YET_STARTED'
+  | 'COMPLETE_AND_PENDING'
+  | 'COMPELTE_AND_PAID';
 
 export type GameTimer = {|
   +startAt: Date,
