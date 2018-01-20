@@ -34,17 +34,34 @@ export default (async function gameRunner() {
   atTime({ minutes: 19, seconds: 5 }, game, async () => {
     console.log('CREATING QUESTION!');
     questions.FIRST = buildQuestion(
-      'What will happen next?',
-      ['Something Crazy!', 'Something Not Crazy!'],
+      'Who will be winning by half time?',
+      [
+        'Bayern Munich by 1',
+        'Bayern Munich by 2+',
+        'Barcelona by 1',
+        'Barcelona by 2+',
+        'Tie Game',
+      ],
       5000,
-      4,
+      25,
     );
     await genCreateQuestion(questions.FIRST);
   });
 
-  atTime({ minutes: 19, seconds: 20 }, game, async () => {
+  atTime({ minutes: 19, seconds: 35 }, game, async () => {
     console.log('MARKING CORRECT OPTION');
     await genMarkCorrectIndex(questions.FIRST, 0);
+  });
+
+  atTime({ minutes: 19, seconds: 30 }, game, async () => {
+    console.log('NEXT QUESTION');
+    questions.SECOND = buildQuestion(
+      'Who is better looking?',
+      ['Robert Lewandowski', 'Arjen Robben'],
+      2000,
+      20,
+    );
+    await genCreateQuestion(questions.SECOND);
   });
 });
 
