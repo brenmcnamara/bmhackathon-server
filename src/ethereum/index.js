@@ -25,7 +25,8 @@ const Blockchain = {
     let compiledCode = solc.compile(code);
     let abiDefinition = JSON.parse(compiledCode.contracts[':BayernToken'].interface);
     let BayernContract = Blockchain.web3.eth.contract(abiDefinition);
-    Blockchain.contractAddr = '0xa599b75a1ee528fa013f38fe8dec67bbb439d33d';
+    // this should be a command line option
+    Blockchain.contractAddr = '0x4e4ac39bea77b7d1b4c586c093c47e6769bc4259'; 
     Blockchain.getBalances(BayernContract);
     Blockchain.transfer(BayernContract, 10);
     Blockchain.getBalances(BayernContract);
