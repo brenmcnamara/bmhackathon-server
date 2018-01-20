@@ -2,8 +2,8 @@
 
 import * as FirebaseAdmin from 'firebase-admin';
 
-import type { Game } from '../models/Game';
-import type { User } from '../models/User';
+import type { Game } from './models/Game';
+import type { User } from './models/User';
 
 export default function initialize(): void {
   const db = FirebaseAdmin.firestore();
@@ -16,14 +16,15 @@ export default function initialize(): void {
         .filter(doc => doc.exists)
         .map(doc => doc.data());
 
-      const allUsers: Array<User> = await FirebaseAdmin.collection('User')
+      const allUsers: Array<User> = await db
+        .collection('User')
         .get()
         .then(snapshot =>
           snapshot.docs.filter(doc => doc.exists).map(doc => doc.data()),
         );
 
       for (let game of games) {
-        const allUserPoints = await calculateUserPoints(allUsers);
+        const allUserPoints = await calculateUserPoints(allUsers, game);
         // Get top 10 winners (NOTE: Could be less than 10 players).
         // Give them coins.
       }
