@@ -36,12 +36,13 @@ export default (async function gameRunner() {
     questions.FIRST = buildQuestion(
       'What will happen next?',
       ['Something Crazy!', 'Something Not Crazy!'],
-      1,
+      1000,
+      4,
     );
     await genCreateQuestion(questions.FIRST);
   });
 
-  atTime({ minutes: 19, seconds: 10 }, game, async () => {
+  atTime({ minutes: 19, seconds: 20 }, game, async () => {
     console.log('MARKING CORRECT OPTION');
     await genMarkCorrectIndex(questions.FIRST, 0);
   });
@@ -77,7 +78,27 @@ function initialize(): Promise<void> {
         });
         return batch.commit();
       })
-      // TODO: Delete submissions.
+      // Delete submissions
+      .then(() => {
+        return FirebaseAdmin.firestore()
+          .collection('Submission')
+          .where('gameRef.refID', '==', GAME_ID)
+          .get();
+      })
+      .then(snapshot => {
+        const batch = FirebaseAdmin.firestore().batch();
+        snapshot.docs.forEach(doc => {
+          if (!doc.exists) {
+            return;
+          }
+          const submission = doc.data();
+          const ref = FirebaseAdmin.firestore()
+            .collection('Submission')
+            .doc(submission.id);
+          batch.delete(ref);
+          return batch.commit();
+        });
+      })
       // Delete the game
       .then(() => {
         return FirebaseAdmin.firestore()
@@ -111,6 +132,7 @@ function buildGame(): Game {
 function buildQuestion(
   query: string,
   options: Array<string>,
+  maxPointValue: number,
   timeLimit: Seconds,
 ): Question {
   const now = new Date();
@@ -125,6 +147,7 @@ function buildQuestion(
     },
     id: uuid(),
     isCanceled: false,
+    maxPointValue,
     modelType: 'Question',
     options,
     query,

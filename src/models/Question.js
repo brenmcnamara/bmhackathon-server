@@ -7,6 +7,7 @@ export type Question = ModelStub<'Question'> & {
   +correctIndex: number | 'UNKNOWN',
   +gameRef: Pointer<'Game'>,
   +isCanceled: bool,
+  +maxPointValue: number,
   +options: Array<string>,
   +query: string,
   +timeLimit: Seconds,
