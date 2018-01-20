@@ -36,7 +36,7 @@ export default (async function gameRunner() {
     questions.FIRST = buildQuestion(
       'What will happen next?',
       ['Something Crazy!', 'Something Not Crazy!'],
-      10,
+      1,
     );
     await genCreateQuestion(questions.FIRST);
   });
