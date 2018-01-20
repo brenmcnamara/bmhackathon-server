@@ -1,6 +1,6 @@
 /* @flow */
 
-import type { ID, ModelStub } from './types';
+import type { ModelStub } from './types';
 import type { TeamName } from './Team';
 
 export type Game = ModelStub<'Game'> & {

@@ -98,7 +98,7 @@ function buildGame(): Game {
     home: 'BAYERN_MUNICH',
     homeScore: 1,
     modelType: 'Game',
-    status: { type: 'IN_PROGRESS' },
+    status: 'IN_PROGRESS',
     timer: {
       type: 'FIRST_HALF',
       startAt: new Date(Date.now() - 1000 * 60 * 19),

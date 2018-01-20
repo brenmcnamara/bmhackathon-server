@@ -41,7 +41,7 @@ function calculateUserPoints(
       // 2. Is the submission correct? If so, increment their point values by
       //    the point values for the submission.
       // 3. Return the total point values.
-      return Math.random() * 1000;
+      return Promise.resolve(Math.random() * 1000);
     }),
   );
 }
