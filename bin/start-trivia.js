@@ -11,7 +11,7 @@ const FirebaseAdmin = require('firebase-admin');
 
 const dotenv = require('dotenv');
 const fs = require('fs');
-const gameRunner = require('../build/gameRunner1').default;
+const gameRunner = require('../build/gameRunner2').default;
 const path = require('path');
 
 console.log('Configuring environment variables...');
