@@ -33,7 +33,6 @@ export default (async function gameRunner() {
   await genCreateGame(game);
 
   atTime({ minutes: 19, seconds: 5 }, game, async () => {
-    console.log('CREATING QUESTION!');
     questions.FIRST = buildQuestion(
       'Who will be winning by half time?',
       [
@@ -49,20 +48,25 @@ export default (async function gameRunner() {
     await genCreateQuestion(questions.FIRST);
   });
 
-  atTime({ minutes: 19, seconds: 35 }, game, async () => {
-    console.log('MARKING CORRECT OPTION');
-    await genMarkCorrectIndex(questions.FIRST, 0);
+  atTime({ minutes: 19, seconds: 33 }, game, async () => {
+    questions.SECOND = buildQuestion(
+      'Will the game go into overtime?',
+      ['Yes', 'No'],
+      500,
+      10,
+    );
+    await genCreateQuestion(questions.SECOND);
   });
 
-  atTime({ minutes: 19, seconds: 40 }, game, async () => {
-    console.log('NEXT QUESTION');
-    questions.SECOND = buildQuestion(
+  atTime({ minutes: 19, seconds: 45 }, game, async () => {
+    questions.THIRD = buildQuestion(
       'Who is better looking?',
       ['Robert Lewandowski', 'Arjen Robben'],
       2000,
-      20,
+      10,
     );
-    await genCreateQuestion(questions.SECOND);
+    await genCreateQuestion(questions.THIRD);
+    await genMarkCorrectIndex(questions.THIRD, 0);
   });
 });
 
