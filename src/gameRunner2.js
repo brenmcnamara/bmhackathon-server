@@ -66,46 +66,6 @@ export default (async function gameRunner() {
   await genCreateQuestion(questions.THIRD);
   await genMarkCorrectIndex(questions.THIRD, 0);
 
-  await waitForSeconds(QUESTION_DELAY + QUESTION_TIME);
-  questions.FOURTH = buildQuestion(
-    "Who is the youngest player to play for 'Die Bayern'?",
-    [
-      'Mehmet Scholl',
-      'Bastian Schweinsteiger',
-      'Pierre-Emil Hojbjerg',
-      'David Alaba',
-    ],
-    QUESTION_POINTS,
-    QUESTION_TIME,
-  );
-  await genCreateQuestion(questions.FOURTH);
-  await genMarkCorrectIndex(questions.FOURTH, 2);
-
-  await waitForSeconds(QUESTION_DELAY + QUESTION_TIME);
-  questions.FIFTH = buildQuestion(
-    'Which one of these players made the most appearances for Manchester City?',
-    [
-      'Michael Tarnat',
-      'Daniel van Buyten',
-      'Jerome Boateng',
-      'Roque Santa Cruz',
-    ],
-    QUESTION_POINTS,
-    QUESTION_TIME,
-  );
-  await genCreateQuestion(questions.FIFTH);
-  await genMarkCorrectIndex(questions.FIFTH, 0);
-
-  await waitForSeconds(QUESTION_TIME + QUESTION_DELAY);
-  questions.SIXTH = buildQuestion(
-    'How many times have Bayern won the Bundesliga?',
-    ['23', '21', '20', '22'],
-    QUESTION_POINTS,
-    QUESTION_TIME,
-  );
-  await genCreateQuestion(questions.SIXTH);
-  await genMarkCorrectIndex(questions.SIXTH, 1);
-
   await waitForSeconds(QUESTION_TIME + QUESTION_DELAY);
   console.log(chalk.green('Ending game...'));
   await genEndGame(game);
