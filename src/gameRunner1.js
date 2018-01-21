@@ -50,8 +50,8 @@ export default (async function gameRunner() {
 
   atTime({ minutes: 19, seconds: 33 }, game, async () => {
     questions.SECOND = buildQuestion(
-      'Will the game go into overtime?',
-      ['Yes', 'No'],
+      'What will be the result of the match?',
+      ['Bayern Munich Wins', 'Barcelona Wins', 'Draw'],
       500,
       10,
     );
